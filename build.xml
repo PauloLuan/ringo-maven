@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ringo-maven" default="help" basedir=".">
+
+    <description>
+        Maven Ringo Build File
+    </description>
+
+    <property name="war.src" location="target/${ant.project.name}"/>
+    <property name="app.port" value="9000"/>
+
+    <target name="help" description="print build target descriptions">
+        <exec executable="ant">
+            <arg value="-p"/>
+        </exec>
+    </target>
+
+    <target name="installed" description="confirms app is installed">
+        <condition property="war.src.exists">
+            <available file="${war.src}" type="dir"/>
+        </condition>
+        <fail message="App not yet built.  Run `mvn clean install` first." 
+                unless="war.src.exists"/>
+    </target>
+
+    <target name="debug" depends="installed" description="runs app in debug mode">
+        <java classname="org.ringojs.tools.launcher.Main" failonerror="true" fork="true">
+            <classpath>
+                <fileset dir="${war.src}/WEB-INF/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+            <sysproperty key="app.debug" value="1"/>
+            <sysproperty key="ringo.home" path="${war.src}/WEB-INF"/>
+            <sysproperty key="ringo.modulepath" path="externals"/>
+            <arg path="app/main.js"/>
+            <arg line="-p ${app.port}"/>
+        </java>
+    </target>
+
+    <target name="debugall" depends="installed" description="runs app and server in debug mode">
+        <java classname="org.ringojs.tools.launcher.Main" failonerror="true" fork="true">
+            <classpath>
+                <fileset dir="${war.src}/WEB-INF/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+            <sysproperty key="app.debug" value="1"/>
+            <sysproperty key="ringo.home" path="${war.src}/WEB-INF"/>
+            <sysproperty key="ringo.modulepath" path="externals"/>
+            <arg value="-d"/>
+            <arg path="app/main.js"/>
+            <arg line="-p ${app.port}"/>
+        </java>
+    </target>
+
+    <target name="test" unless="skipTests" depends="installed" description="run tests">
+         <java classname="org.ringojs.tools.launcher.Main" failonerror="true" fork="true">
+            <classpath>
+                <fileset dir="${war.src}/WEB-INF/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+            <sysproperty key="ringo.home" path="${war.src}/WEB-INF"/>
+            <sysproperty key="ringo.modulepath" path="externals"/>
+            <arg path="tests/all.js"/>
+        </java>
+    </target>
+
+</project>
