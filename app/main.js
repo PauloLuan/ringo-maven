@@ -3,9 +3,9 @@ var response = require('ringo/jsgi/response');
 
 var app = Application();
 
-app.configure("notfound", "error", "mount", "route", "render");
+app.configure("notfound", "error", "mount", "route", "render", "static");
 app.render.base = module.resolve("templates");
-//app.static(module.resolve("./public/"));
+app.static(module.resolve("./public/"));
 
 app.get("/", function(request) 
 {
