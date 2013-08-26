@@ -6,7 +6,14 @@ These instructions describe how to build ringo-maven application.
 
 To get a copy of the application source code, use [Git](http://git-scm.com/):
 
-    git clone https://github.com/PauloLuan/ringo-maven.git
+#. Clone the repository:: 
+
+     git clone https://github.com/PauloLuan/ringo-maven.git
+     cd ringo-maven
+
+#. Initialize submodule dependencies::
+
+     git submodule update --init --recursive
 
 ## Dependencies
 
@@ -16,8 +23,15 @@ To build the application, you need [Maven 2](http://maven.apache.org/) installed
 
 Before running in development mode or preparing the application for deployment, you need to install dependencies.  Do this by running `mvn install` in the ringo-maven directory:
 
-    cd ringo-maven/
     mvn clean install
+
+If you want to add RingoJS module, just run command:
+
+	git submodule add <URL_OF_GITHUB_REPO> externals/<NAME>
+
+for example:
+
+	git submodule add https://github.com/hns/stick externals/stick
 
 ## Running in development mode
 
