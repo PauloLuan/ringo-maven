@@ -6,12 +6,12 @@ These instructions describe how to build ringo-maven application.
 
 To get a copy of the application source code, use [Git](http://git-scm.com/):
 
-#. Clone the repository:: 
+1 - Clone the repository:
 
      git clone https://github.com/PauloLuan/ringo-maven.git
      cd ringo-maven
 
-#. Initialize submodule dependencies::
+2 - Initialize submodule dependencies:
 
      git submodule update --init --recursive
 
