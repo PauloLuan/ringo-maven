@@ -9,7 +9,7 @@
 
     <properties>
         <war-src>${project.build.directory}/${artifactId}</war-src>
-        <jetty-version>7.1.6.v20100715</jetty-version>
+        <jetty-version>9.4.21.v20190926</jetty-version>
     </properties>
     
     <repositories>
